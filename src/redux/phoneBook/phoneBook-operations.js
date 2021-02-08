@@ -1,3 +1,4 @@
+// import { createAsyncThunk } from '@reduxjs/toolkit';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import {
@@ -12,20 +13,8 @@ import {
   deleteContactError,
   changeFilter,
 } from '../phoneBook/phoneBook-actions';
-// import phoneBookAPI from '../../services/phoneBook-api';
 
 axios.defaults.baseURL = 'http://localhost:4040';
-
-// export const fetchContacts = () => async dispatch => {
-//   try {
-//     dispatch(actions.fetchContactsRequest());
-//     const contacts = await phoneBookAPI.fetchContacts();
-//     console.log(contacts);
-//     dispatch(actions.fetchContactsSuccess(contacts));
-//   } catch (error) {
-//     dispatch(actions.fetchContactsError(error));
-//   }
-// };
 
 export const fetchContacts = () => async dispatch => {
   try {
@@ -57,7 +46,7 @@ export const addContact = (name, number) => async dispatch => {
     dispatch(addContactError(error));
   }
 };
-
+// обычный фетч
 // export const addContact = (name, number) => dispatch => {
 //   const contact = {
 //     name,
@@ -81,6 +70,6 @@ export const deleteContact = id => async dispatch => {
       // console.log(response);
       .then(() => dispatch(deleteContactSuccess(id)));
   } catch (error) {
-    dispatch(fetchContactsError(error));
+    dispatch(deleteContactError(error));
   }
 };

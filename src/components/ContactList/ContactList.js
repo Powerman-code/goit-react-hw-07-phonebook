@@ -3,9 +3,11 @@ import PropTypes from 'prop-types';
 import * as phoneBookActions from '../../redux/phoneBook/phoneBook-actions';
 import s from './ContactList.module.css';
 import {
-  getContacts,
-  getFilter,
+  getLoadingStatus,
+  // getContacts,
+  // getFilter,
   getVisibleContacts,
+  getErrorMessage,
 } from '../../redux/phoneBook/phoneBook-selectors';
 import * as phoneBookOperations from '../../redux/phoneBook/phoneBook-operations';
 import { useEffect } from 'react';
@@ -21,6 +23,8 @@ import { useEffect } from 'react';
 
 export default function ContactList() {
   const visibleContacts = useSelector(getVisibleContacts);
+  const loadingStatus = useSelector(getLoadingStatus);
+  const error = useSelector(getErrorMessage);
   // const contacts = useSelector(state => state.phoneBook.items);
   // const filter = useSelector(state => state.phoneBook.filter);
   const dispatch = useDispatch();
@@ -33,24 +37,28 @@ export default function ContactList() {
   }, [dispatch]);
 
   return (
-    <ul>
-      {visibleContacts &&
-        visibleContacts.map(({ id, name, number }) => (
-          <li key={id}>
-            <p>
-              {name} {number}
-            </p>
-            <button
-              type="button"
-              id={id}
-              onClick={() => onDeleteContact(id)}
-              className={s.button}
-            >
-              Delete
-            </button>
-          </li>
-        ))}
-    </ul>
+    <>
+      {error && <h1>Error</h1>}
+      {loadingStatus && <h1>Loading, please wait</h1>}
+      <ul>
+        {visibleContacts &&
+          visibleContacts.map(({ id, name, number }) => (
+            <li key={id}>
+              <p>
+                {name} {number}
+              </p>
+              <button
+                type="button"
+                id={id}
+                onClick={() => onDeleteContact(id)}
+                className={s.button}
+              >
+                Delete
+              </button>
+            </li>
+          ))}
+      </ul>
+    </>
   );
 }
 

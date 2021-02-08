@@ -12,10 +12,10 @@ import {
   deleteContactError,
   changeFilter,
 } from '../phoneBook/phoneBook-actions';
-
-// console.log(actions.addContact.type);
+// import { fetchContacts } from './phoneBook-operations';
 
 const items = createReducer([], {
+  // [fetchContacts.fulfilled]: (_, { payload }) => payload,
   [fetchContactsSuccess]: (_, { payload }) => payload,
   [addContactSuccess]: (state, { payload }) => [payload, ...state],
   [deleteContactSuccess]: (state, { payload }) =>
@@ -40,13 +40,16 @@ const loading = createReducer(false, {
 
 const error = createReducer(null, {
   [fetchContactsError]: (_, { payload }) => payload,
+  [fetchContactsRequest]: () => null,
+  [addContactError]: (_, { payload }) => payload,
+  [deleteContactError]: (_, { payload }) => payload,
 });
 
 export default combineReducers({
   items,
   filter,
-  // contacts,
   error,
+  loading,
 });
 
 // old redux

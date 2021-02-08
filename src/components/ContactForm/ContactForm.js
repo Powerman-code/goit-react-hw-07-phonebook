@@ -14,9 +14,6 @@ export default function ContactForm() {
   // console.log(contacts);
   const dispatch = useDispatch();
   const onAddContact = (name, number) =>
-    // {
-    //   console.log(name, number);
-    // };
     dispatch(phoneBookOperations.addContact(name, number));
 
   const handleSubmit = e => {
