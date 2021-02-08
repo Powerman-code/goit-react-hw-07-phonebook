@@ -25,7 +25,7 @@ export const fetchContacts = () => async dispatch => {
       // console.log(response);
       .then(({ data }) => dispatch(fetchContactsSuccess(data)));
   } catch (error) {
-    dispatch(fetchContactsError(error));
+    dispatch(fetchContactsError(error.message));
   }
 };
 
@@ -43,7 +43,7 @@ export const addContact = (name, number) => async dispatch => {
       // console.log(response);
       .then(({ data }) => dispatch(addContactSuccess(data)));
   } catch (error) {
-    dispatch(addContactError(error));
+    dispatch(addContactError(error.message));
   }
 };
 // обычный фетч
